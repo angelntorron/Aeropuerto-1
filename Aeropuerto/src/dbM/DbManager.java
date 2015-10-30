@@ -3,6 +3,7 @@ package dbM;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,9 +37,9 @@ public class DbManager {
 		try {
 			Statement stmt1 = c.createStatement();
 
-			String p = "create table TRABAJADOR (" + "id integrer, " + "tripulacion text not null,"
-					+ "nombre text not null," + "fechaDeNacimiento DATE," + "fechaInicioTrabajo DATE,"
-					+ "primary key (id)" + ")" + ";";
+			String p = "create table TRABAJADOR (" + "id integer primary key autoincrement, " + "tripulacion text not null,"
+					+ "nombre text not null," + "fechaDeNacimiento DATE," + "fechaInicioTrabajo DATE)"
+					 + ";";
 
 			stmt1.executeUpdate(p);
 			stmt1.close();
@@ -51,7 +52,7 @@ public class DbManager {
 	public void insertTablaTripulacion(Trabajador trabajador) {
 		try {
 
-			String o = "Insert into Trabajador (tripulacion, nombre, fechaDeNacimiento,fechaInicioTrabajo"
+			String o = "Insert into Trabajador (tripulacion, nombre, fechaDeNacimiento,fechaInicioTrabajo)"
 					+ "values (?,?,?,?);";
 
 			PreparedStatement prep = c.prepareStatement(o);
@@ -67,6 +68,33 @@ public class DbManager {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public List<Trabajador> selectTrabajador(){
+		List<Trabajador> trabajador=new ArrayList<Trabajador>();
+		try{
+			Statement stmt5=c.createStatement();
+			String sql="select * from TRABAJADOR";
+			ResultSet rs=stmt5.executeQuery(sql);
+			while(rs.next()){
+				int id =rs.getInt("id");
+				String tripulacion=rs.getString("tripulacion");
+				String nombre=rs.getString("nombre");
+				Date fechaNacimiento=rs.getDate("fechaDeNacimiento");
+				Date fechaContrato=rs.getDate("fechaInicioTrabajo");
+			Trabajador trb=new Trabajador(id, tripulacion, nombre, fechaNacimiento, fechaContrato);
+			trabajador.add(trb);
+			}
+			
+			c.close();
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return trabajador;
+		
+		
 	}
 
 	// ________________________________________PISTA________________________________

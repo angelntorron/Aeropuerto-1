@@ -13,7 +13,7 @@ public class Trabajador {
 	public Trabajador(){
 		
 	}
-	private Trabajador(String tripu, String nombre, Date fechaDeNacimiento, Date fechaInicioTrabajo){
+	public Trabajador(String tripu, String nombre, Date fechaDeNacimiento, Date fechaInicioTrabajo){
 		this.tripulacion=tripu;
 		this.nombre=nombre;
 		this.fechaDeNacimiento=fechaDeNacimiento;
@@ -21,7 +21,7 @@ public class Trabajador {
 		
 	}
 	
-	private Trabajador(int id, String tripulacion, String nombre, Date fechaDeNacimiento, Date fechaInicioTrabajo){
+	public Trabajador(int id, String tripulacion, String nombre, Date fechaDeNacimiento, Date fechaInicioTrabajo){
 		this.id=id;
 		this.tripulacion=tripulacion;
 		this.nombre=nombre;
@@ -31,8 +31,8 @@ public class Trabajador {
 	
 	public String toString(){
 		String c = new String();
-		c = "Tripulacion:"+tripulacion+"nombre:"+nombre+"Fecha de Nacimiento:" + 
-		fechaDeNacimiento+"Fecha De inicio de contrato:"+ fechaInicioTrabajo;
+		c = "Id: "+id +"\n"+"Tripulacion: "+tripulacion +"\n"+"nombre:"+nombre+"\n"+"Fecha de Nacimiento:" + 
+		fechaDeNacimiento+"\n"+"Fecha De inicio de contrato:"+ fechaInicioTrabajo;
 		return c;
 	}
 		
