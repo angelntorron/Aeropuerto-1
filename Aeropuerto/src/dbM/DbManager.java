@@ -102,7 +102,7 @@ public class DbManager {
 	public void createTablaPista() {
 		try {
 			Statement stmt1 = c.createStatement();
-			String p = "create table PISTA (" + "id integrer, " + "estado text not null," + "orientacion text not null,"
+			String p = "create table PISTA (" + "id integer, " + "estado text not null," + "orientacion text not null,"
 					+ "longitud integrer not null," + "primary key (id)" + ")" + ";";
 
 			stmt1.executeUpdate(p);
@@ -156,34 +156,40 @@ public class DbManager {
 
 	}
 
-	// ---------------------MODELO-----------------------
+	// ---------------------MODELO---------------------------------------------------------
 
 	public void createTablaModelo() {
 		Statement stmt1;
 		try {
 			stmt1 = c.createStatement();
 
-			String p = "create table MODELO (" + "id integrer, " + "asiento integrer not null,"
-					+ "nombre text not null," + "capacidad integrer not null," + "primary key (id)" + ")" + ";";
+			String p = "create table MODELO (" + "id integrer primary key autoincrement, " + "asiento integrer not null,"
+					+ "nombre text not null," + "capacidad integrer not null,"  
+					+ ")" + ";";
 			stmt1.executeUpdate(p);
 			stmt1.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void insertTablaModelo(Modelo modelo) {
-
-		String sql = "Insert into Pista (capacidad, nombre, asiento" + "values (?,?,?);";
 		try {
+		
+			String sql = "Insert into Modelo (capacidad, nombre, asiento)" + "values (?,?,?);";
+		
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, modelo.getCapacidad());
 			prep.setString(2, modelo.getNombre());
 			prep.setString(3, modelo.getAsiento());
-		} catch (Exception e) {
+			
+			prep.executeUpdate();
+			c.close();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 	public List<Modelo> selectModelo() {
@@ -196,11 +202,12 @@ public class DbManager {
 			String sql = "Select * from MODELO";
 			ResultSet rs = stm1.executeQuery(sql);
 			while (rs.next()) {
+				int id=rs.getInt("id");
 				int capacidad = rs.getInt("capacidad");
 				String asiento = rs.getString("asiento");
 				String nombre = rs.getString("nombre");
 
-				Modelo m1 = new Modelo(capacidad, asiento, nombre);
+				Modelo m1 = new Modelo(id, capacidad, nombre, asiento);
 				ListaModelo.add(m1);
 			}
 			c.close();
@@ -209,6 +216,7 @@ public class DbManager {
 		}
 		return ListaModelo;
 	}
+	
 
 	// ______________________________________________AEROLINEA__________________________________
 
@@ -219,7 +227,8 @@ public class DbManager {
 		try{
 			Statement stmt1 = c.createStatement();
 			
-			String sql = "create table Aerolinea (" + "id integrer, " + "asiento integrer not null," + "nombre text not null,"
+			String sql = "create table Aerolinea (" + "id integrer, " + "asiento integrer not null," 
+			+ "nombre text not null,"
 					+ "capacidad integrer not null," + "primary key (id)" + ")" + ";";
 			stmt1.executeQuery(sql);
 			c.close();
@@ -235,7 +244,7 @@ public class DbManager {
 		try{
 		
 		Statement stmt1 = c.createStatement();
-		String sql = "Insert into Aerolinea(nombre, aeropuertoBase, nacionalidad" + "values (?,?,?);";
+		String sql = "Insert into Aerolinea(nombre, aeropuertoBase, nacionalidad)" + "values (?,?,?);";
 		PreparedStatement  p = c.prepareStatement(sql);
 		p.setString(1, aerolinea.getNombre());
 		p.setString(2, aerolinea.getAeropuertoBase());

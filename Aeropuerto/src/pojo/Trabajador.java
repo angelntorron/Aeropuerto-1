@@ -32,7 +32,7 @@ public class Trabajador {
 	public String toString(){
 		String c = new String();
 		c = "Id: "+id +"\n"+"Tripulacion: "+tripulacion +"\n"+"nombre:"+nombre+"\n"+"Fecha de Nacimiento:" + 
-		fechaDeNacimiento+"\n"+"Fecha De inicio de contrato:"+ fechaInicioTrabajo;
+		fechaDeNacimiento+"\n"+"Fecha De inicio de contrato:"+ fechaInicioTrabajo+"\n";
 		return c;
 	}
 		

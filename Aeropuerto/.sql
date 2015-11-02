@@ -1,2 +1,1 @@
-drop table pista;
-drop table trabajador;
+drop table TRABAJADOR;

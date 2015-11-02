@@ -6,7 +6,7 @@ public class Aerolinea {
 	private int id;
 	
 	
-	public Aerolinea(String nombre, String aeropuertoBase, String nacionalidad, int id) {
+	public Aerolinea(int id, String nombre, String aeropuertoBase, String nacionalidad) {
 		super();
 		this.nombre = nombre;
 		this.aeropuertoBase = aeropuertoBase;

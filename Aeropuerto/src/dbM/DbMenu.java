@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+import pojo.Aerolinea;
+import pojo.Modelo;
 import pojo.Pista;
 import pojo.Trabajador;
 
@@ -25,13 +27,18 @@ public class DbMenu{
 			gestor.createTablaModelo();
 			gestor.createTablaPista();
 			gestor.createTablaTripulacion();
-			
-			
+			gestor.createTablaAerolinea();
+			/*
+			 * gestor.createTablaEquipaje();
+			 * gestor.createTablaAvion();
+			 * gestor.createTablaBillete();
+			 * gestor.createTablaPasajero();
+			 * gestor.createTablaTerminal();
+			 * gestor.createTablaVuelo();
+			 */
+		
 		}
-		
-		
-		
-		
+	
 		System.out.println("¿Qué quieres hacer? \n"
 				+ "1.Añadir elemento \n"
 				+ "2.Ver tabla \n"
@@ -39,69 +46,30 @@ public class DbMenu{
 		
 		
 		int opcion1=Integer.parseInt(sc.nextLine());
-		 switch(opcion1){
-		 case 1: 
-			 menu2();
-			 
-			/*
-			 // String estado = sc.nextLine();
-			 System.out.println("Introduzca los datos de la pista:");
-			 System.out.println("Estado:");
-			
-			 String estado = sc.nextLine();
-			 System.out.println("AAAAAA:"+estado);
-		     
-		     System.out.println("Orientacion:");
-		     String orientacion = sc.nextLine();
-		     
-		   
-		     System.out.println("Longitud:");
-		     int longitud = sc.nextInt();
-		     
-		     
-		     Pista p1 = new Pista(estado, orientacion, longitud);
-		     
-		     gestor.insertTablaPista(p1);
-			 
-			 */
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 break;
-		 case 2: 
-			 
-			 List<Trabajador> trabajador1=gestor.selectTrabajador();
-			 
-			for(Trabajador trabajador:trabajador1){
-				System.out.println(trabajador.toString());
-			}
-			 
-			 /* List<Pista> listaPista = gestor.selectPista();
-		for (Pista pista : listaPista) {
-			System.out.println(pista.toString());
-		}
-			 break;
-			 */
-			 break;
-			// menu3();
-		 case 3: 
-			 opcion1();
-			 break;
-		 default: System.out.println("Opción no válida");
-		 }
-	}public static void main(String []args) {
-		gestor = new DbManager("Airport.db");
-		opcion1();
 		
+		 switch(opcion1){
+		 
+		 case 1: 
+			 //le he cambiado los nombres a los metodos de los menus, esto vende mas
+			 menuEscogerTablaAñadir();
+	
+			 break;
+			 
+		 case 2: 
+			 menuEscogerTablaVer();
+			
+		 case 3: 
+			 //menu3();
+			 break;
+		 default: 
+			 System.out.println("Opción no válida");
+			 opcion1();
+		 }
+		 
+		 
 	}
 	
-	public static void menu2(){
+	public static void menuEscogerTablaAñadir(){
 		System.out.println("¿En qué tabla quieres añadir el elemento?");
 		System.out.println("1.Trabajador \n"
 				+ "2.Aerolínea \n"
@@ -114,35 +82,168 @@ public class DbMenu{
 				+ "9.Vuelo \n"
 				+ "10.Avión");
 	
-	int a=sc.nextInt();
-	sc.nextLine();
-	switch(a){
+		int a=sc.nextInt();
+		sc.nextLine();
+		
+		switch(a){
+	
 		case 1: 
-		System.out.println("¿A qué tripulación pertenece: ");
-		String tripulacion=sc.nextLine();
-		
-		System.out.println("Nombre del trabajador: ");
-		String nombre=sc.nextLine();
-		
-		System.out.println("Fecha de nacimiento (yyyy-MM-dd)");
-		String fechaNacimiento1 = sc.nextLine();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate p = LocalDate.parse(fechaNacimiento1, formatter);
-		Date fechaNacimiento =Date.valueOf(p);
-		
-		System.out.println("Fecha inicio contrato (yyyy-MM-dd");
-		String fechaContrato1=sc.nextLine();
-		LocalDate p2 = LocalDate.parse(fechaContrato1, formatter);
-		Date fechaContrato=Date.valueOf(p2);
-		
-		Trabajador trabajador1=new Trabajador(tripulacion, nombre, fechaNacimiento, fechaContrato);
-		gestor.insertTablaTripulacion(trabajador1);
-		case 2:
+			System.out.println("Añadiendo trabajador . . . ");
+			System.out.println("¿A qué tripulación pertenece: ");
+			String tripulacion=sc.nextLine();
 			
+			System.out.println("Nombre del trabajador: ");
+			String nombreTrabajador=sc.nextLine();
+			
+			System.out.println("Fecha de nacimiento (yyyy-MM-dd)");
+			String fechaNacimiento1 = sc.nextLine();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate p = LocalDate.parse(fechaNacimiento1, formatter);
+			Date fechaNacimiento =Date.valueOf(p);
+			
+			System.out.println("Fecha inicio contrato (yyyy-MM-dd");
+			String fechaContrato1=sc.nextLine();
+			LocalDate p2 = LocalDate.parse(fechaContrato1, formatter);
+			Date fechaContrato=Date.valueOf(p2);
+			
+			Trabajador trabajador1=new Trabajador(tripulacion, nombreTrabajador, fechaNacimiento, fechaContrato);
+			gestor.insertTablaTripulacion(trabajador1);
+			
+			break;
 		
+		case 2:
+			//no pude comprobar porque no puedo crear las tablas
+			System.out.println("Añadiendo Aerolínea . . . ");
+			System.out.println("Nombre: ");
+			String nombreAerolinea=sc.nextLine();
+			
+			System.out.println("Aeropuerto base: ");
+			String aeropuertoBase=sc.nextLine();
+			
+			System.out.println("Nacionalidad: ");
+			String nacionalidad=sc.nextLine();
+			
+			Aerolinea aerolinea=new Aerolinea(nombreAerolinea, aeropuertoBase, nacionalidad);
+			gestor.insertTablaAerolinea(aerolinea);
+			break;
+		
+		case 3:
+			//se añade y tal, pero falla en lo de asignar id
+			System.out.println("Añadiendo modelo . . . ");
+			System.out.println("Capacidad: ");
+			int capacidad=sc.nextInt();
+			sc.nextLine();
+			
+			System.out.println("Nombre: ");
+			String nombreModelo=sc.nextLine();
+			
+			System.out.println("Asiento");
+			String asientoModelo=sc.nextLine();
+			
+			Modelo modelo=new Modelo(capacidad, nombreModelo, asientoModelo);
+			gestor.insertTablaModelo(modelo);
+			break;
+		
+		case 4:
+			System.out.println("Añadiendo pista . . . ");
+			
+			System.out.println("Estado: ");
+			String estado=sc.nextLine();
+			
+			System.out.println("Orientación: ");
+			String orientacion=sc.nextLine();
+			
+			System.out.println("Longitud: ");
+			int longitud=sc.nextInt();
+			
+			Pista pista=new Pista(estado, orientacion, longitud);
+			gestor.insertTablaPista(pista);
+			break;
+			
+		case 5:
+			System.out.println("Añadiendo billete . . . ");
+			
+			System.out.println("");
+			break;
+		case 6:
+			System.out.println("Añadiendo pasajero . . . ");
+			
+			break;
+		case 7:
+			System.out.println("Añadiendo equipaje . . . ");
+			
+			break;
+		case 8:
+			System.out.println("Añadiendo terminal . . . ");
+			
+			break;
+			
+		case 9:
+			System.out.println("Añadiendo vuelo . . . ");
+			
+			break;
+		case 10:
+			
+			System.out.println("Añadiendo avión . . . ");
+			
+			break;
+		
+		default: 
+			System.out.println(a+" no es válido");
+			System.out.println("Seleccione una opción válida");
+			menuEscogerTablaAñadir();
+			
+		}
 	}
+	//Este es el segundo menu, para imprimir la tabla que se seleccione
+	public static void menuEscogerTablaVer(){
+		
+		System.out.println("¿Qué tabla quieres ver?");
+		System.out.println("1.Trabajador \n"
+				+ "2.Aerolínea \n"
+				+ "3.Modelo \n"
+				+ "4.Pista \n"
+				+ "5.Billete \n"
+				+ "6.Pasajero \n"
+				+ "7.Equipaje \n"
+				+ "8.Terminal \n"
+				+ "9.Vuelo \n"
+				+ "10.Avión");
+	
+		int aa=sc.nextInt();
+		sc.nextLine();
+		
+		switch(aa){
+		case 1:
+		
+		List<Trabajador> trabajador1=gestor.selectTrabajador();
+		 
+		for(Trabajador trabajador:trabajador1){
+			System.out.println(trabajador.toString());
+		}
+		
+		 break;
+		 
+		case 2:
+			 break;
+		case 3:
+			List<Modelo> modelo1=gestor.selectModelo();
+			for(Modelo modelo:modelo1){
+				System.out.println(modelo.toString());
+			break;
+			}
+		
+		}
 	}
+	
 	public static void menu3(){
+		opcion1();
+	}
+	public static void main(String []args) {
+		gestor = new DbManager("Airport.db");
+		opcion1();
 		
 	}
+	
 }
+

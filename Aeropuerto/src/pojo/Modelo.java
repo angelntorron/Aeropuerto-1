@@ -47,7 +47,7 @@ public class Modelo {
 		this.asiento = asiento;
 	}
 	public String toString(){
-		String diego="Capacidad: "+capacidad+" Nombre: "+nombre+" Asiento: "+asiento;
+		String diego="Id: " +id +"Capacidad: "+capacidad+" Nombre: "+nombre+" Asiento: "+asiento;
 		return diego;
 		
 	}
