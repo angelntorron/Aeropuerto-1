@@ -50,7 +50,7 @@ public class DbMenu{
 		 switch(opcion1){
 		 
 		 case 1: 
-			 //le he cambiado los nombres a los metodos de los menus, esto vende mas
+			 //le he cambiado los eeeeeeeeenombres a los metodos de los menus, esto vende mas
 			 menuEscogerTablaAñadir();
 	
 			 break;
