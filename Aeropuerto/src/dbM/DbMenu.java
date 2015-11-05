@@ -59,7 +59,7 @@ public class DbMenu{
 			 menuEscogerTablaVer();
 			
 		 case 3: 
-			 //menu3();
+			 //menu3() eres basura hermano;
 			 break;
 		 default: 
 			 System.out.println("Opción no válida");
